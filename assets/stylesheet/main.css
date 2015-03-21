@@ -4,10 +4,11 @@ body {
   color: white;
   background-color: black;
   font-family: 'Roboto', sans-serif;
+  margin: 0;
 }
 
 #results {
-  padding: 20px 50px 20px 50px;
+  padding: 20px 50px 220px 50px;
 
   font-size: 3em;
 }
