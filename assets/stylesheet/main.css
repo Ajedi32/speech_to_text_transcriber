@@ -1,0 +1,19 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+
+body {
+  color: white;
+  background-color: black;
+  font-family: 'Roboto', sans-serif;
+}
+
+#results {
+  padding: 20px 50px 20px 50px;
+
+  font-size: 3em;
+}
+#finalized-text {
+  color: white;
+}
+#interm-text {
+  color: hsl(0, 0%, 70%);
+}
