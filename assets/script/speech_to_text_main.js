@@ -13,6 +13,8 @@ if (!('webkitSpeechRecognition' in window)) {
   let final_span = document.getElementById("finalized-text");
   let interim_span = document.getElementById("interm-text");
 
+  let auto_restart = true;
+
   recognition.onstart = function() {
     console.log("Transcription started.");
     // ...
@@ -36,12 +38,16 @@ if (!('webkitSpeechRecognition' in window)) {
   };
   recognition.onerror = function(event) {
     console.log("Error!\n" + event);
-    // TODO: Restart transcription.
+
+    if (auto_restart) setTimeout(startRecognition, 100);
   };
   recognition.onend = function() {
     console.log("Transcription ended.");
     // ...
   };
 
-  recognition.start();
+  function startRecognition() {
+    recognition.start();
+  }
+  startRecognition();
 }
