@@ -7,10 +7,15 @@ function pageScrollBottom() {
   return document.documentElement.scrollTopMax - document.body.scrollTop;
 }
 
-const scroll_start_threshold = 200;
-const scroll_end_threshold = 0;
+const buffer_element = document.getElementById("buffer");
+function scrollStartThreshold() {
+  return scrollEndThreshold() + buffer_element.clientHeight;
+}
+function scrollEndThreshold() {
+  return parseInt(getComputedStyle(buffer_element).getPropertyValue("margin-bottom"));
+}
 
-const scrollInterval = 100;
+const scrollInterval = 30;
 const scrollSpeed = 1;
 
 const checkInterval = 1000;
@@ -18,7 +23,7 @@ const checkInterval = 1000;
 let scrollIntervalID = undefined;
 
 function startScrollIfNeeded() {
-  if (pageScrollBottom() > scroll_start_threshold) startScroll();
+  if (pageScrollBottom() > scrollStartThreshold()) startScroll();
 }
 
 function startScroll() {
@@ -30,7 +35,7 @@ function startScroll() {
 function scrollDownUntilStopThresholdMet() {
   scrollDown();
 
-  if (pageScrollBottom() <= scroll_end_threshold) {
+  if (pageScrollBottom() <= scrollEndThreshold()) {
     clearInterval(scrollIntervalID)
     scrollIntervalID = undefined;
   }

@@ -8,7 +8,7 @@ body {
 }
 
 #results {
-  padding: 20px 50px 220px 50px;
+  padding: 20px 50px 1em 50px;
 
   font-size: 3em;
 }
@@ -17,4 +17,10 @@ body {
 }
 #interm-text {
   color: hsl(0, 0%, 70%);
+}
+#buffer {
+  margin: 0px 0px 3em 0px;
+  padding: 0;
+
+  height: 30vh;
 }
