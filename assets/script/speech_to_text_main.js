@@ -39,15 +39,12 @@ if (!('webkitSpeechRecognition' in window)) {
   recognition.onerror = function(event) {
     console.log("Error!\n" + event);
 
-    if (auto_restart) setTimeout(startRecognition, 100);
+    if (auto_restart) setTimeout(() => recognition.start(), 100);
   };
   recognition.onend = function() {
     console.log("Transcription ended.");
     // ...
   };
 
-  function startRecognition() {
-    recognition.start();
-  }
-  startRecognition();
+  recognition.start();
 }
