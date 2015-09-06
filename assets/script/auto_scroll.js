@@ -1,57 +1,38 @@
 "use strict";
 
-function pageScrollBottom() {
-  // For some reason, only the document element (e.g. `<html>`) has the correct
-  // client height, whereas only the body has a scroll height (the document
-  // element's scroll height is always 0).
-  return document.documentElement.scrollTopMax - document.body.scrollTop;
-}
-
-const buffer_element = document.getElementById("buffer");
+const bufferElement = document.getElementById("buffer");
 function scrollStartThreshold() {
-  return scrollEndThreshold() + buffer_element.clientHeight;
+  return scrollEndThreshold() + bufferElement.clientHeight;
 }
 function scrollEndThreshold() {
-  return parseInt(getComputedStyle(buffer_element).getPropertyValue("margin-bottom"));
+  return parseInt(getComputedStyle(bufferElement).getPropertyValue("margin-bottom"));
 }
 
-const scrollInterval = 30;
-const scrollSpeed = 1;
-
-const checkInterval = 1000;
-
-let scrollIntervalID = undefined;
+function scrollStartThresholdMet() {
+  return viewport.distanceFromBottom > scrollStartThreshold()
+}
+function scrollEndThresholdMet() {
+  return viewport.distanceFromBottom <= scrollEndThreshold()
+}
 
 function startScrollIfNeeded() {
-  if (pageScrollBottom() > scrollStartThreshold()) startScroll();
-}
-
-function startScroll() {
-  if (scrollIntervalID !== undefined) return;
-
-  scrollIntervalID = setInterval(scrollDownUntilStopThresholdMet, scrollInterval);
-}
-
-function scrollDownUntilStopThresholdMet() {
-  scrollDown();
-
-  if (pageScrollBottom() <= scrollEndThreshold()) {
-    clearInterval(scrollIntervalID)
-    scrollIntervalID = undefined;
+  if (scroller.running) return
+  if (scrollStartThresholdMet()) {
+    scroller.scrollDownUntil(scrollEndThresholdMet)
   }
 }
 
-function scrollDown() {
-  scrollBy(0, scrollSpeed);
-}
+const viewport = new Viewport();
+const scroller = new ViewportScroller(viewport);
 
-let checkIntervalID = undefined;
+const observedDOMObject = document.getElementById('results')
+const observer = new MutationObserver(startScrollIfNeeded)
+
 function enable() {
-  checkIntervalID = setInterval(startScrollIfNeeded, checkInterval);
+  observer.observe(observedDOMObject, {childList: true, characterData: true, subtree: true})
 }
 function disable() {
-  clearInterval(checkIntervalID);
-  checkIntervalID = undefined;
+  observer.disconnect()
 }
 
-enable();
+enable()
