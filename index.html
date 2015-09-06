@@ -3,6 +3,7 @@
   <head>
     <title>Speech to Text Transcriber</title>
     <script src="./assets/script/speech_to_text_main.js" async></script>
+    <script src="./assets/script/control_bar.js" async></script>
     <script src="./assets/script/viewport.js" defer></script>
     <script src="./assets/script/viewport_scroller.js" defer></script>
     <script src="./assets/script/auto_scroll.js" defer></script>
@@ -13,5 +14,11 @@
       <span id="finalized-text"></span><span id="interm-text"></span>
     </div>
     <div id="buffer"></div>
+    <div id="controls" class="panel-bottom">
+      <div class="panel-container">
+        <div class="panel-main"></div>
+      </div>
+      <div class="panel-buffer"></div>
+    </div>
   </body>
 </html>
