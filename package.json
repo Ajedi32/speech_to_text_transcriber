@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Ajedi32/speech_to_text_transcriber/issues"
   },
-  "homepage": "https://github.com/Ajedi32/speech_to_text_transcriber#readme"
+  "homepage": "https://github.com/Ajedi32/speech_to_text_transcriber#readme",
+  "devDependencies": {
+    "bower": "^1.5.2"
+  }
 }
