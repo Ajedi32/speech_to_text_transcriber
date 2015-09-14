@@ -14,5 +14,8 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "pure": "~0.6.0"
+  }
 }
