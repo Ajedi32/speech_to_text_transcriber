@@ -1,0 +1,22 @@
+{
+  "name": "speech_to_text_transcriber",
+  "version": "0.1.0",
+  "description": "A simple application for transcribing speech to text using the Web Speech API",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ajedi32/speech_to_text_transcriber.git"
+  },
+  "author": "Andrew Meyer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ajedi32/speech_to_text_transcriber/issues"
+  },
+  "homepage": "https://github.com/Ajedi32/speech_to_text_transcriber#readme",
+  "devDependencies": {
+    "bower": "^1.5.2"
+  }
+}

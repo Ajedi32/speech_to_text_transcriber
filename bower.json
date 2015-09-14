@@ -1,0 +1,21 @@
+{
+  "name": "speech_to_text_transcriber",
+  "version": "0.1.0",
+  "homepage": "https://github.com/Ajedi32/speech_to_text_transcriber",
+  "authors": [
+    "Andrew Meyer <andrewm.bpi@gmail.com>"
+  ],
+  "description": "A simple application for transcribing speech to text using the Web Speech API",
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "pure": "~0.6.0"
+  }
+}

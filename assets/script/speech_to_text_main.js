@@ -12,12 +12,16 @@ if (!('webkitSpeechRecognition' in window)) {
 
   let final_span = document.getElementById("finalized-text");
   let interim_span = document.getElementById("interm-text");
+  let transcription_toggle_button = document.getElementById("toggle-transcription");
 
   let auto_restart = true;
 
+  let transcription_running = false;
+
   recognition.onstart = function() {
     console.log("Transcription started.");
-    // ...
+    transcription_running = true;
+    transcription_toggle_button.innerText = "Stop Transcription";
   };
   recognition.onresult = function(event) {
     let interim_transcript = '';
@@ -43,8 +47,15 @@ if (!('webkitSpeechRecognition' in window)) {
   };
   recognition.onend = function() {
     console.log("Transcription ended.");
-    // ...
+    transcription_running = false;
+    transcription_toggle_button.innerText = "Start Transcription";
   };
 
-  recognition.start();
+  transcription_toggle_button.addEventListener("click", (e) => {
+    if (transcription_running) {
+      recognition.stop();
+    } else {
+      recognition.start();
+    }
+  });
 }
