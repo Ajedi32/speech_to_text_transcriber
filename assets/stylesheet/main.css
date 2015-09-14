@@ -22,7 +22,7 @@ body {
 
 /* Buffer */
 #buffer {
-  margin: 0 0 calc(3em + 100px) 0;
+  margin: 0 0 calc(3em + 65px) 0;
   padding: 0;
 
   height: 30vh;
@@ -38,7 +38,7 @@ body {
   bottom: 0;
   left: 0;
 
-  height: 100px;
+  height: 65px;
   width: 100%;
 
   overflow-y: hidden;
@@ -46,18 +46,29 @@ body {
 .panel-bottom .panel-main {
   transition: bottom 0.35s ease-in;
   position: relative;
-  bottom: -100px;
+  bottom: -65px;
 
   height: 100%;
   width: 100%;
-  background-color: grey;
+  background-color: white;
 
-  opacity: 0.7;
+  padding: 15px;
+
+  box-sizing: border-box;
 }
 .panel-bottom.expanded .panel-main {
   transition-timing-function: ease-out;
   bottom: 0;
 }
 .panel-bottom.expanded .panel-buffer {
-  height: 100px;
+  height: 65px;
+}
+
+.panel-bottom .panel-header {
+  display: inline-block;
+  float: right;
+  margin: 0 10px 0 10px;
+
+  font-size: 30px;
+  color: hsl(209, 100%, 45%);
 }
