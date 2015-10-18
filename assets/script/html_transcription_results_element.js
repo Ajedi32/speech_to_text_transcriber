@@ -1,18 +1,21 @@
 "use strict";
 class HTMLTranscriptionResultsElement extends HTMLElement {
   createdCallback() {
-    this._finalizedTextElement = this._newSpan("finalized-text")
-    this._intermTextElement = this._newSpan("interm-text")
-
-    this._finalizedText = ""
-    this._intermText = ""
+    this._initializeTextElements()
 
     this._lastFinalizedIndex = 0
 
     this.speechRecognition = null
 
+    this._speechRecognitionStart = this._speechRecognitionStart.bind(this)
     this._speechRecognitionResult = this._speechRecognitionResult.bind(this)
     this._speechRecognitionEnd = this._speechRecognitionEnd.bind(this)
+    this._speechRecognitionError = this._speechRecognitionError.bind(this)
+  }
+
+  _initializeTextElements() {
+    this._finalizedTextElement = this._newSpan("finalized-text")
+    this._intermTextElement = this._newSpan("interm-text")
   }
 
   get speechRecognition() {
@@ -33,14 +36,18 @@ class HTMLTranscriptionResultsElement extends HTMLElement {
 
   _bindEvents() {
     if (!this._speechRecognition) return
+    this._speechRecognition.addEventListener('start', this._speechRecognitionStart)
     this._speechRecognition.addEventListener('result', this._speechRecognitionResult)
     this._speechRecognition.addEventListener('end', this._speechRecognitionEnd)
+    this._speechRecognition.addEventListener('error', this._speechRecognitionError)
   }
 
   _unbindEvents() {
     if (!this._speechRecognition) return
+    this._speechRecognition.removeEventListener('start', this._speechRecognitionStart)
     this._speechRecognition.removeEventListener('result', this._speechRecognitionResult)
     this._speechRecognition.removeEventListener('end', this._speechRecognitionEnd)
+    this._speechRecognition.removeEventListener('error', this._speechRecognitionError)
   }
 
   get _finalizedText() {
@@ -57,6 +64,9 @@ class HTMLTranscriptionResultsElement extends HTMLElement {
     this._intermTextElement.innerText = newValue
   }
 
+  _speechRecognitionStart(event) {
+    this.displayStatus('start', "Speech recognition started.")
+  }
   _speechRecognitionResult(event) {
     let newFinalizedText = ""
     let newIntermText = ""
@@ -75,9 +85,12 @@ class HTMLTranscriptionResultsElement extends HTMLElement {
     this._intermText = newIntermText
     this._finalizedText += newFinalizedText
   }
-
   _speechRecognitionEnd(event) {
     this._lastFinalizedIndex = 0
+    this.displayStatus('stop', "Speech recognition stopped.")
+  }
+  _speechRecognitionError(event) {
+    this.displayStatus('error', "Speech recognition error: " + this._humanReadableSpeechError(event.error))
   }
 
   _newSpan(domClass) {
@@ -85,6 +98,43 @@ class HTMLTranscriptionResultsElement extends HTMLElement {
     span.classList.add(domClass)
     this.appendChild(span)
     return span
+  }
+
+  _newStatus(type, msg) {
+    var div = document.createElement("div")
+    div.classList.add('status')
+    div.classList.add('status-' + type)
+    div.innerText = msg
+    this.appendChild(div)
+    return div
+  }
+
+  _humanReadableSpeechError(errorCode) {
+    switch (errorCode) {
+      case "no-speech":
+        return "No speech was detected."
+      case "aborted":
+        return "Speech input was aborted."
+      case "audio-capture":
+        return "Audio capture failed."
+      case "network":
+        return "Network connection failed."
+      case "not-allowed":
+        return "Speech capture permission denied."
+      case "service-not-allowed":
+        return "Specified speech capture permission denied."
+      case "bad-grammar":
+        return "Speech recognition grammar or semantic tags invalid."
+      case "language-not-supported":
+        return "The specified language is not supported."
+      default:
+        return errorCode
+    }
+  }
+
+  displayStatus(type, msg) {
+    this._newStatus(type, msg)
+    this._initializeTextElements()
   }
 }
 

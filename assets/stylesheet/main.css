@@ -11,14 +11,29 @@ body {
 transcription-results {
   display: block;
   padding: 20px 50px 1em 50px;
+}
+transcription-results .status {
+  background-color: #303030;
 
-  font-size: 3em;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+transcription-results .status-start {
+  background-color: #00C000;
+}
+transcription-results .status-error {
+  background-color: red;
 }
 transcription-results .finalized-text {
   color: white;
+  font-size: 3em;
 }
 transcription-results .interm-text {
   color: hsl(0, 0%, 70%);
+  font-size: 3em;
 }
 
 /* Buffer */
