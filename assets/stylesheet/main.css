@@ -8,15 +8,16 @@ body {
 }
 
 /* Results */
-#results {
+transcription-results {
+  display: block;
   padding: 20px 50px 1em 50px;
 
   font-size: 3em;
 }
-#finalized-text {
+transcription-results .finalized-text {
   color: white;
 }
-#interm-text {
+transcription-results .interm-text {
   color: hsl(0, 0%, 70%);
 }
 

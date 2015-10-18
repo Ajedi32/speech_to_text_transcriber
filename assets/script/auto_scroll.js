@@ -25,7 +25,7 @@ function startScrollIfNeeded() {
 const viewport = new Viewport();
 const scroller = new ViewportScroller(viewport);
 
-const observedDOMObject = document.getElementById('results')
+const observedDOMObject = document.getElementById('transcription')
 const observer = new MutationObserver(startScrollIfNeeded)
 
 function enable() {

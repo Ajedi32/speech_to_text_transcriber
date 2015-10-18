@@ -2,16 +2,18 @@
 if (!('webkitSpeechRecognition' in window)) {
   alert("This application is currently unsupported on your browser.\nPlease use Chrome instead.");
 } else {
+  let transcriptionContainer = document.getElementById("transcription");
+
   let recognition = new webkitSpeechRecognition();
   recognition.continuous = true;
   recognition.interimResults = true;
 
   recognition.lang = 'en-US'; // Hard coded for now.
 
-  let final_transcript = '';
+  let trResults = document.createElement('transcription-results')
+  trResults.speechRecognition = recognition
+  transcriptionContainer.appendChild(trResults)
 
-  let final_span = document.getElementById("finalized-text");
-  let interim_span = document.getElementById("interm-text");
   let transcription_toggle_button = document.getElementById("toggle-transcription");
 
   let auto_restart = true;
@@ -22,23 +24,6 @@ if (!('webkitSpeechRecognition' in window)) {
     console.log("Transcription started.");
     transcription_running = true;
     transcription_toggle_button.innerText = "Stop Transcription";
-  };
-  recognition.onresult = function(event) {
-    let interim_transcript = '';
-
-    // Loop through new results
-    for (let i = event.resultIndex; i < event.results.length; ++i) {
-      let result = event.results[i];
-
-      if (result.isFinal) {
-        final_transcript += result[0].transcript;
-      } else {
-        interim_transcript += result[0].transcript;
-      }
-    }
-
-    final_span.innerText = final_transcript;
-    interim_span.innerText = interim_transcript;
   };
   recognition.onerror = function(event) {
     console.log("Error!\n" + event);
