@@ -23,7 +23,11 @@ function startScrollIfNeeded() {
 }
 
 const viewport = new Viewport();
-const scroller = new ViewportScroller(viewport);
+const scroller = new ViewportScroller(viewport, {
+  scrollSpeed: () => {
+    return scrollStartThresholdMet() ? 2 : 1;
+  }
+});
 
 const observedDOMObject = document.getElementById('transcription')
 const observer = new MutationObserver(startScrollIfNeeded)

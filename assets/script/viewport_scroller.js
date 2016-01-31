@@ -29,6 +29,15 @@ class ViewportScroller {
     return this.intervalId !== null
   }
 
+  get scrollSpeed() {
+    let result = this._scrollSpeed;
+    if (typeof result === 'function') result = result();
+    return result;
+  }
+  set scrollSpeed(newVal) {
+    this._scrollSpeed = newVal;
+  }
+
   _checkCondition() {
     if (this.scrollCondition(this)) {
       return true
