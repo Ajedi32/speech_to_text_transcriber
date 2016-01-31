@@ -82,8 +82,11 @@ class HTMLTranscriptionResultsElement extends HTMLElement {
       }
     }
 
-    this._intermText = newIntermText
+    // Add to finalized text *before* updating interm text. This prevents the
+    // scrollbar from jumping upwards due to the page size shrinking before
+    // expanding.
     this._finalizedText += newFinalizedText
+    this._intermText = newIntermText
   }
   _speechRecognitionEnd(event) {
     this._lastFinalizedIndex = 0
