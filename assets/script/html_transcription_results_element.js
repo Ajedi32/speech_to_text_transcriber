@@ -1,19 +1,25 @@
 "use strict";
 class HTMLTranscriptionResultsElement extends HTMLElement {
-  createdCallback() {
-    this._initializeTextElements()
+  constructor() {
+    super();
 
+    this._initialized = false
     this._lastFinalizedIndex = 0
-
     this.speechRecognition = null
 
+    // Bind `this` in event listener methods
     this._speechRecognitionStart = this._speechRecognitionStart.bind(this)
     this._speechRecognitionResult = this._speechRecognitionResult.bind(this)
     this._speechRecognitionEnd = this._speechRecognitionEnd.bind(this)
     this._speechRecognitionError = this._speechRecognitionError.bind(this)
   }
 
+  connectedCallback() {
+    this._initializeTextElements()
+  }
+
   _initializeTextElements() {
+    if (this._initialized) return
     this._finalizedTextElement = this._newSpan("finalized-text")
     this._intermTextElement = this._newSpan("interm-text")
   }
@@ -36,6 +42,7 @@ class HTMLTranscriptionResultsElement extends HTMLElement {
 
   _bindEvents() {
     if (!this._speechRecognition) return
+    this._initializeTextElements()
     this._speechRecognition.addEventListener('start', this._speechRecognitionStart)
     this._speechRecognition.addEventListener('result', this._speechRecognitionResult)
     this._speechRecognition.addEventListener('end', this._speechRecognitionEnd)
@@ -141,6 +148,4 @@ class HTMLTranscriptionResultsElement extends HTMLElement {
   }
 }
 
-document.registerElement('transcription-results', {
-  prototype: HTMLTranscriptionResultsElement.prototype
-})
+customElements.define('transcription-results', HTMLTranscriptionResultsElement)
