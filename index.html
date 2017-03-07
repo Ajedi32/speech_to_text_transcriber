@@ -8,6 +8,9 @@
     <script src="./assets/script/viewport.js" defer></script>
     <script src="./assets/script/viewport_scroller.js" defer></script>
     <script src="./assets/script/auto_scroll.js" defer></script>
+    <script src="./node_modules/css-element-queries/src/ResizeSensor.js" defer></script>
+    <script src="./node_modules/css-element-queries/src/ElementQueries.js" defer></script>
+    <script src="./assets/script/html_audio_level_indicator_element.js" defer></script>
     <link rel="stylesheet" type="text/css" href="./assets/stylesheet/main.css"/>
     <link rel="stylesheet" type="text/css" href="./bower_components/pure/base.css"/>
     <link rel="stylesheet" type="text/css" href="./bower_components/pure/buttons.css"/>
@@ -20,6 +23,7 @@
         <div class="panel-main">
           <button class="pure-button pure-button-primary" id="toggle-transcription">Start Transcription</button>
           <h1 class="panel-header">Speech to Text Transcriber</h1>
+          <audio-level-indicator></audio-level-indicator>
         </div>
       </div>
       <div class="panel-buffer"></div>

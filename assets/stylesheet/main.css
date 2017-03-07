@@ -88,3 +88,10 @@ transcription-results .interm-text {
   font-size: 30px;
   color: hsl(209, 100%, 45%);
 }
+
+.panel-bottom audio-level-indicator {
+  display: inline-block;
+  float: right;
+  height: 100%;
+  width: 65px;
+}
